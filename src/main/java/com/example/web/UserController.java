@@ -1,9 +1,11 @@
 package com.example.web;
 
 import com.example.domain.User;
+import com.example.domain.UserMapper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -14,6 +16,9 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
+
+    @Autowired
+    UserMapper userMapper;
 
     // 创建线程安全的Map
     static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
@@ -67,6 +72,13 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         // 处理"/users/{id}"的DELETE请求，用来删除User
         users.remove(id);
+        return "success";
+    }
+
+    @ApiOperation(value="添加用户", notes="通过mybatis添加用户")
+    @RequestMapping(value="/addUserByMybatis",method=RequestMethod.POST)
+    public String addUserByMybatis (@ModelAttribute User user) {
+        userMapper.insert(user.getName(),user.getAge());
         return "success";
     }
 }

@@ -7,4 +7,8 @@
 
 ![user](DemoIMG/swaggerAPI1.png)
 
+![user](DemoIMG/swaggerAPI2.png)
+
+![user](DemoIMG/swaggerAPI3.png)
+
 
